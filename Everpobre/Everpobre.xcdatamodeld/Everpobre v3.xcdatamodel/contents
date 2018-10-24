@@ -3,6 +3,7 @@
     <entity name="Coodinates" representedClassName="Coodinates" syncable="YES" codeGenerationType="class">
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="coordinates" inverseEntity="Note" syncable="YES"/>
     </entity>
     <entity name="Note" representedClassName="Note" syncable="YES">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -10,6 +11,7 @@
         <attribute name="lastSeenDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="coordinates" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Coodinates" inverseName="notes" inverseEntity="Coodinates" syncable="YES"/>
         <relationship name="notebook" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notebook" inverseName="notes" inverseEntity="Notebook" syncable="YES"/>
     </entity>
     <entity name="Notebook" representedClassName="Notebook" syncable="YES">
@@ -18,8 +20,8 @@
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Note" inverseName="notebook" inverseEntity="Note" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Note" positionX="-363.234375" positionY="-189.875" width="128" height="135"/>
+        <element name="Note" positionX="-363.234375" positionY="-189.875" width="128" height="150"/>
         <element name="Notebook" positionX="-566.0859375" positionY="-178.21875" width="130.546875" height="88"/>
-        <element name="Coodinates" positionX="-468" positionY="-135" width="128" height="75"/>
+        <element name="Coodinates" positionX="-468" positionY="-135" width="128" height="90"/>
     </elements>
 </model>
