@@ -1,5 +1,5 @@
 //
-//  Notebook+CoreDataClass.swift
+//  Coodinates+CoreDataClass.swift
 //  Everpobre
 //
 //  Created by David Braga  on 24/10/2018.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(Notebook)
-public class Notebook: NSManagedObject {
+@objc(Coodinates)
+public class Coodinates: NSManagedObject {
 
 }

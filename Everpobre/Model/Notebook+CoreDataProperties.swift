@@ -2,7 +2,7 @@
 //  Notebook+CoreDataProperties.swift
 //  Everpobre
 //
-//  Created by Charles Moncada on 09/10/18.
+//  Created by David Braga  on 24/10/2018.
 //  Copyright © 2018 Charles Moncada. All rights reserved.
 //
 //
@@ -17,8 +17,8 @@ extension Notebook {
         return NSFetchRequest<Notebook>(entityName: "Notebook")
     }
 
-    @NSManaged public var name: String?
     @NSManaged public var creationDate: NSDate?
+    @NSManaged public var name: String?
     @NSManaged public var notes: NSOrderedSet?
 
 }
