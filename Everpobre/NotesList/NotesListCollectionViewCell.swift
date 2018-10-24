@@ -24,12 +24,16 @@ class NotesListCollectionViewCell: UICollectionViewCell {
 		backgroundColor = .white
 		titleLabel.text = item.title
 		creationDateLabel.text = (item.creationDate as Date?)?.customStringLabel()
-        if let imageData = item.image as Data?{
+        let nsData = item.image
+        if let imageNsData = nsData, let imageData = imageNsData as Data?{
             DispatchQueue.global(qos: .default).async {
-                let image = UIImage(data: imageData)
+                let optionalImage: UIImage? = UIImage(data: imageData)
+                guard let image = optionalImage else { return }
+                
                 DispatchQueue.main.async {
                     self.imageView.image = image
                 }
+                
             }
         }
 	}

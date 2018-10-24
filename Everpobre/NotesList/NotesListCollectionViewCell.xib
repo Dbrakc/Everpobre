@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="100" height="150"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8mk-u4-Lb1">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stickyNote" translatesAutoresizingMaskIntoConstraints="NO" id="8mk-u4-Lb1">
                         <rect key="frame" x="0.0" y="0.0" width="100" height="150"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Gm-IN-Zhh">
@@ -59,4 +59,7 @@
             <point key="canvasLocation" x="24" y="118"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="stickyNote" width="225" height="225"/>
+    </resources>
 </document>

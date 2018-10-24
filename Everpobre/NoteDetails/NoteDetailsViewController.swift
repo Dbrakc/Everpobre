@@ -99,7 +99,10 @@ class NoteDetailsViewController: UIViewController {
 			note.text = descriptionTextView.text
 
 			let imageData: NSData?
-			if let image = imageView.image,
+            if imageView.image == #imageLiteral(resourceName: "120x180.png"),
+                let data = #imageLiteral(resourceName: "stickyNote.jpg").pngData(){
+                imageData = NSData(data: data)
+            } else if imageView.image != #imageLiteral(resourceName: "120x180.png"), let image = imageView.image,
 				let data = image.pngData() {
 				imageData = NSData(data: data)
 			} else { imageData = nil }
