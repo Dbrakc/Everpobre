@@ -18,6 +18,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="100" height="150"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8mk-u4-Lb1">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="150"/>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Gm-IN-Zhh">
                         <rect key="frame" x="33.5" y="64.5" width="33.5" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -33,15 +36,22 @@
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="8mk-u4-Lb1" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="0DK-qr-vfF"/>
+                <constraint firstAttribute="bottom" secondItem="8mk-u4-Lb1" secondAttribute="bottom" id="E6U-7s-0ar"/>
                 <constraint firstItem="US5-zm-ux3" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="FTy-1J-dIM"/>
                 <constraint firstItem="3Gm-IN-Zhh" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="SZh-Rh-vdP"/>
                 <constraint firstAttribute="bottom" secondItem="US5-zm-ux3" secondAttribute="bottom" constant="20" id="Sfq-Iy-OZO"/>
+                <constraint firstItem="8mk-u4-Lb1" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="XdD-p0-RFu"/>
+                <constraint firstItem="8mk-u4-Lb1" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="Zms-yZ-vMg"/>
+                <constraint firstItem="8mk-u4-Lb1" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="cqG-uc-gtO"/>
                 <constraint firstItem="3Gm-IN-Zhh" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="iKL-MG-cjY"/>
+                <constraint firstAttribute="trailing" secondItem="8mk-u4-Lb1" secondAttribute="trailing" id="uGO-Js-Vfr"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="127" height="183"/>
             <connections>
                 <outlet property="creationDateLabel" destination="US5-zm-ux3" id="9U8-hV-gSL"/>
+                <outlet property="imageView" destination="8mk-u4-Lb1" id="r5d-XD-Jac"/>
                 <outlet property="titleLabel" destination="3Gm-IN-Zhh" id="Rlv-Hc-ukA"/>
             </connections>
             <point key="canvasLocation" x="24" y="118"/>

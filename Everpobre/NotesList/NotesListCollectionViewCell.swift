@@ -12,7 +12,8 @@ class NotesListCollectionViewCell: UICollectionViewCell {
 
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var creationDateLabel: UILabel!
-
+    @IBOutlet weak var imageView: UIImageView!
+    
 	var item: Note!
 
 	override func awakeFromNib() {
