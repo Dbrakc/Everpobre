@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		23AB25FD2180CA400013CFCB /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB25F82180CA400013CFCB /* Note+CoreDataProperties.swift */; };
 		23AB25FE2180CA400013CFCB /* Coodinates+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB25F92180CA400013CFCB /* Coodinates+CoreDataClass.swift */; };
 		23AB25FF2180CA400013CFCB /* Coodinates+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB25FA2180CA400013CFCB /* Coodinates+CoreDataProperties.swift */; };
 		23AB26002180CA400013CFCB /* Notebook+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB25FB2180CA400013CFCB /* Notebook+CoreDataClass.swift */; };
 		23AB26012180CA400013CFCB /* Notebook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB25FC2180CA400013CFCB /* Notebook+CoreDataProperties.swift */; };
+		23AB26032180CB420013CFCB /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB26022180CB420013CFCB /* Note+CoreDataProperties.swift */; };
 		A14D6E7B21753B55007EEE1F /* UIImage+ReSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14D6E7821753B55007EEE1F /* UIImage+ReSize.swift */; };
 		A14D6E7C21753B55007EEE1F /* UIImage+Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14D6E7921753B55007EEE1F /* UIImage+Alpha.swift */; };
 		A14D6E7D21753B55007EEE1F /* UIImage+RoundCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14D6E7A21753B55007EEE1F /* UIImage+RoundCorner.swift */; };
@@ -39,11 +39,11 @@
 
 /* Begin PBXFileReference section */
 		23AB25F72180C8FE0013CFCB /* Everpobre v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Everpobre v3.xcdatamodel"; sourceTree = "<group>"; };
-		23AB25F82180CA400013CFCB /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		23AB25F92180CA400013CFCB /* Coodinates+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coodinates+CoreDataClass.swift"; sourceTree = "<group>"; };
 		23AB25FA2180CA400013CFCB /* Coodinates+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coodinates+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		23AB25FB2180CA400013CFCB /* Notebook+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notebook+CoreDataClass.swift"; sourceTree = "<group>"; };
 		23AB25FC2180CA400013CFCB /* Notebook+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notebook+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		23AB26022180CB420013CFCB /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A14D6E6D21751AE0007EEE1F /* Everpobre v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Everpobre v2.xcdatamodel"; sourceTree = "<group>"; };
 		A14D6E7821753B55007EEE1F /* UIImage+ReSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ReSize.swift"; sourceTree = "<group>"; };
 		A14D6E7921753B55007EEE1F /* UIImage+Alpha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Alpha.swift"; sourceTree = "<group>"; };
@@ -142,7 +142,7 @@
 		A1C377AD216BFC6C00F1DB4B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				23AB25F82180CA400013CFCB /* Note+CoreDataProperties.swift */,
+				23AB26022180CB420013CFCB /* Note+CoreDataProperties.swift */,
 				A1678CAD216D45A7006D961B /* Note+CoreDataClass.swift */,
 				23AB25F92180CA400013CFCB /* Coodinates+CoreDataClass.swift */,
 				23AB25FA2180CA400013CFCB /* Coodinates+CoreDataProperties.swift */,
@@ -260,6 +260,7 @@
 				A1C5582A21700191008C8562 /* NotesListCollectionViewCell.swift in Sources */,
 				A14D6E7C21753B55007EEE1F /* UIImage+Alpha.swift in Sources */,
 				A1678C77216D3847006D961B /* CoreDataStack.swift in Sources */,
+				23AB26032180CB420013CFCB /* Note+CoreDataProperties.swift in Sources */,
 				23AB25FF2180CA400013CFCB /* Coodinates+CoreDataProperties.swift in Sources */,
 				23AB26002180CA400013CFCB /* Notebook+CoreDataClass.swift in Sources */,
 				A1C377AF216BFC7E00F1DB4B /* deprecated_Notebook.swift in Sources */,
@@ -270,7 +271,6 @@
 				A1678CB1216D45A7006D961B /* Note+CoreDataClass.swift in Sources */,
 				A1C377B8216C0D8C00F1DB4B /* NoteDetailsViewController.swift in Sources */,
 				A1C377AC216BFB0100F1DB4B /* NotebookListCell.swift in Sources */,
-				23AB25FD2180CA400013CFCB /* Note+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
