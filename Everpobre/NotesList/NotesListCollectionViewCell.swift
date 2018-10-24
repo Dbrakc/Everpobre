@@ -24,5 +24,13 @@ class NotesListCollectionViewCell: UICollectionViewCell {
 		backgroundColor = .white
 		titleLabel.text = item.title
 		creationDateLabel.text = (item.creationDate as Date?)?.customStringLabel()
+        if let imageData = item.image as Data?{
+            DispatchQueue.global(qos: .default).async {
+                let image = UIImage(data: imageData)
+                DispatchQueue.main.async {
+                    self.imageView.image = image
+                }
+            }
+        }
 	}
 }
