@@ -471,7 +471,7 @@
 				A14D6E6D21751AE0007EEE1F /* Everpobre v2.xcdatamodel */,
 				A1678C9A216D3CF1006D961B /* Everpobre.xcdatamodel */,
 			);
-			currentVersion = A14D6E6D21751AE0007EEE1F /* Everpobre v2.xcdatamodel */;
+			currentVersion = 23AB25F72180C8FE0013CFCB /* Everpobre v3.xcdatamodel */;
 			path = Everpobre.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
