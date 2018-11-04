@@ -67,7 +67,13 @@ class NoteDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		configure()
-        setLocationRequestLoop()
+        switch kind {
+        case .new(_):
+            setLocationRequestLoop()
+        default:
+            break;
+        }
+        
     }
     
     func setLocationRequestLoop () {
