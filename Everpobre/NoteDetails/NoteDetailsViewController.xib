@@ -16,7 +16,7 @@
                 <outlet property="descriptionTextView" destination="DX9-GL-xom" id="r6H-UU-ZiI"/>
                 <outlet property="imageView" destination="PF9-Of-ze7" id="ELG-NF-x2U"/>
                 <outlet property="lastSeenDateLabel" destination="ej2-Ad-sCO" id="cE1-3X-gqN"/>
-                <outlet property="tagTextField" destination="tKK-II-x5J" id="ZKK-rA-i2P"/>
+                <outlet property="pickerView" destination="KMX-he-j5Y" id="ur9-Lq-pc4"/>
                 <outlet property="titleTextField" destination="JXU-i6-jAp" id="6Lf-lh-DhB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -63,11 +63,11 @@
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Nnu-Oo-XzI" userLabel="Datos">
                             <rect key="frame" x="128" y="0.0" width="246" height="180"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="gJY-R1-Rpy">
+                                <stackView opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="gJY-R1-Rpy">
                                     <rect key="frame" x="0.0" y="0.0" width="246" height="121.33333333333333"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ttH-Bw-3mt" userLabel="Titulo">
-                                            <rect key="frame" x="0.0" y="0.0" width="246" height="89.333333333333329"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="246" height="50.333333333333336"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Titulo:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pz-im-Lvm">
                                                     <rect key="frame" x="0.0" y="0.0" width="246" height="20.333333333333332"/>
@@ -75,8 +75,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title Label" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JXU-i6-jAp">
-                                                    <rect key="frame" x="0.0" y="20.333333333333329" width="246" height="69"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title Label" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JXU-i6-jAp">
+                                                    <rect key="frame" x="0.0" y="20.333333333333329" width="246" height="30"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -84,21 +84,17 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Sig-Ze-rPv" userLabel="Tags">
-                                            <rect key="frame" x="0.0" y="91.333333333333343" width="246" height="30"/>
+                                            <rect key="frame" x="0.0" y="54.333333333333329" width="246" height="67"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="Tags:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IOB-m2-kEB">
-                                                    <rect key="frame" x="0.0" y="0.0" width="41" height="30"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="41" height="67"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Tags" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tKK-II-x5J">
-                                                    <rect key="frame" x="49" y="0.0" width="197" height="30"/>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
+                                                <pickerView contentMode="redraw" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="KMX-he-j5Y">
+                                                    <rect key="frame" x="49" y="0.0" width="197" height="67"/>
+                                                </pickerView>
                                             </subviews>
                                         </stackView>
                                     </subviews>

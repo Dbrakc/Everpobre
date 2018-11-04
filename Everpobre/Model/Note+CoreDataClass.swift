@@ -43,3 +43,12 @@ extension Note : MKAnnotation{
     
     
 }
+
+extension Note {
+    enum Tag : String {
+        case Personal
+        case Todo
+        case Info
+        case Otros
+    }
+}

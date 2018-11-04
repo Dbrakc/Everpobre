@@ -28,7 +28,8 @@ class NoteDetailsViewController: UIViewController {
 	// MARK: IBOutlets
 	@IBOutlet weak var imageView: UIImageView!
 	@IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var tagTextField: UITextField!
+   
+    @IBOutlet weak var pickerView: UIPickerView!
     
 	@IBOutlet weak var creationDateLabel: UILabel!
 	@IBOutlet weak var lastSeenDateLabel: UILabel!
@@ -41,6 +42,11 @@ class NoteDetailsViewController: UIViewController {
 	let kind: Kind
     let locationManager = CLLocationManager ()
     var lastLocation : CLLocation?
+    private let tagsDataList: [Note.Tag] = [.Info,.Personal,.Todo,.Otros]
+    var pickerData: [String]{
+        return tagsDataList.map{$0.rawValue}
+    }
+    var selectedPickerRow : String?
 
 	weak var delegate: NoteDetailsViewControllerProtocol?
 
@@ -103,8 +109,10 @@ class NoteDetailsViewController: UIViewController {
 
 		title = kind.title
 		titleTextField.text = kind.note?.title
-        tagTextField.text = kind.note?.tags
-		//tagsLabel.text = note.tags?.joined(separator: ",")
+        pickerView.dataSource = self
+        pickerView.delegate = self
+        
+        pickerView.selectRow(pickerData.lastIndex(of: kind.note?.tags ?? Note.Tag.Todo.rawValue)!, inComponent: 0, animated: true)
 		creationDateLabel.text = "Creado: \((kind.note?.creationDate as Date?)?.customStringLabel() ?? "ND")"
 		lastSeenDateLabel.text = "Visto: \((kind.note?.lastSeenDate as Date?)?.customStringLabel() ?? "ND")"
 		descriptionTextView.text = kind.note?.text ?? "Ingrese texto..."
@@ -135,7 +143,7 @@ class NoteDetailsViewController: UIViewController {
 		func addProperties(to note: Note) -> Note {
 			note.title = titleTextField.text
 			note.text = descriptionTextView.text
-            note.tags = tagTextField.text
+            note.tags = selectedPickerRow
 
 			let imageData: NSData?
             if imageView.image == #imageLiteral(resourceName: "120x180.png"),
@@ -282,6 +290,28 @@ extension NoteDetailsViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("No pude conseguir la ubicacion del usuario: \(error.localizedDescription)")
     }
+}
+
+extension NoteDetailsViewController : UIPickerViewDataSource{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+
+}
+
+extension NoteDetailsViewController : UIPickerViewDelegate{
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedPickerRow = pickerData[row]
+    }
+    
 }
 
 
