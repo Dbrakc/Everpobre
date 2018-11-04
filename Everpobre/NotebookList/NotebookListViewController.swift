@@ -324,6 +324,7 @@ extension NotebookListViewController: UITableViewDelegate {
 
 		//let notesListVC = NotesListViewController(notebook: notebook, managedContext: managedContext)
         let tabBarController = UITabBarController()
+        tabBarController.title = "Notas"
 		
         let mapViewContoller = MapViewController(notebook: notebook, coreDataStack: coredataStack)
         let notesListVC = NewNotesListViewController(notebook: notebook, coreDataStack: coredataStack,delegate: mapViewContoller)
