@@ -9,8 +9,15 @@
 
 import Foundation
 import CoreData
+import CoreLocation
 
 @objc(Coodinates)
 public class Coodinates: NSManagedObject {
+    func wrapedInCLLocation () -> CLLocation {
+        return CLLocation(latitude: self.latitude, longitude: self.longitude)
+    }
+    
+    
+    
 
 }

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		231E831F218E2AD1000BC92A /* UiViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231E831E218E2AD1000BC92A /* UiViewController+Navigation.swift */; };
+		231E8323218E2B8B000BC92A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231E8321218E2B8B000BC92A /* MapViewController.swift */; };
+		231E8324218E2B8B000BC92A /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 231E8322218E2B8B000BC92A /* MapViewController.xib */; };
+		231E8326218E3C8E000BC92A /* CLLocation+Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231E8325218E3C8E000BC92A /* CLLocation+Operations.swift */; };
+		231E8328218E71EF000BC92A /* Region+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231E8327218E71EE000BC92A /* Region+Validation.swift */; };
 		23AB25FE2180CA400013CFCB /* Coodinates+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB25F92180CA400013CFCB /* Coodinates+CoreDataClass.swift */; };
 		23AB26002180CA400013CFCB /* Notebook+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB25FB2180CA400013CFCB /* Notebook+CoreDataClass.swift */; };
 		23AB26132180D6B70013CFCB /* Coodinates+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23AB26102180D6B70013CFCB /* Coodinates+CoreDataProperties.swift */; };
@@ -38,6 +43,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		231E831E218E2AD1000BC92A /* UiViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UiViewController+Navigation.swift"; sourceTree = "<group>"; };
+		231E8321218E2B8B000BC92A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		231E8322218E2B8B000BC92A /* MapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
+		231E8325218E3C8E000BC92A /* CLLocation+Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Operations.swift"; sourceTree = "<group>"; };
+		231E8327218E71EE000BC92A /* Region+Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Region+Validation.swift"; sourceTree = "<group>"; };
 		23AB25F72180C8FE0013CFCB /* Everpobre v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Everpobre v3.xcdatamodel"; sourceTree = "<group>"; };
 		23AB25F92180CA400013CFCB /* Coodinates+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coodinates+CoreDataClass.swift"; sourceTree = "<group>"; };
 		23AB25FB2180CA400013CFCB /* Notebook+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notebook+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -83,6 +93,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		231E8320218E2B60000BC92A /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				231E8321218E2B8B000BC92A /* MapViewController.swift */,
+				231E8322218E2B8B000BC92A /* MapViewController.xib */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		A1678C73216D2F91006D961B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +110,9 @@
 				A14D6E7A21753B55007EEE1F /* UIImage+RoundCorner.swift */,
 				A1678C74216D2FAD006D961B /* Date+Utils.swift */,
 				A1678C76216D3847006D961B /* CoreDataStack.swift */,
+				231E831E218E2AD1000BC92A /* UiViewController+Navigation.swift */,
+				231E8325218E3C8E000BC92A /* CLLocation+Operations.swift */,
+				231E8327218E71EE000BC92A /* Region+Validation.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -117,6 +139,7 @@
 				A14D6E7E21754539007EEE1F /* Animator.swift */,
 				A1678C73216D2F91006D961B /* Utils */,
 				A1C377AD216BFC6C00F1DB4B /* Model */,
+				231E8320218E2B60000BC92A /* Map */,
 				A1C377A8216BF00900F1DB4B /* NotebookList */,
 				A1C377B2216C037400F1DB4B /* NotesList */,
 				A1C377B5216C0D2C00F1DB4B /* NoteDetails */,
@@ -237,6 +260,7 @@
 				A1C377B9216C0D8C00F1DB4B /* NoteDetailsViewController.xib in Resources */,
 				A1C5582B21700191008C8562 /* NotesListCollectionViewCell.xib in Resources */,
 				A1C3779E216BEF3000F1DB4B /* Assets.xcassets in Resources */,
+				231E8324218E2B8B000BC92A /* MapViewController.xib in Resources */,
 				A1C3779C216BEF2F00F1DB4B /* Main.storyboard in Resources */,
 				A1C55827216FFE57008C8562 /* NewNotesListViewController.xib in Resources */,
 			);
@@ -255,10 +279,13 @@
 				A1C377B1216C02B300F1DB4B /* deprecated_Note.swift in Sources */,
 				A1C377AA216BF1D900F1DB4B /* NotebookListViewController.swift in Sources */,
 				A1678C9B216D3CF1006D961B /* Everpobre.xcdatamodeld in Sources */,
+				231E8326218E3C8E000BC92A /* CLLocation+Operations.swift in Sources */,
 				A1C37797216BEF2F00F1DB4B /* AppDelegate.swift in Sources */,
+				231E8323218E2B8B000BC92A /* MapViewController.swift in Sources */,
 				A1C5582A21700191008C8562 /* NotesListCollectionViewCell.swift in Sources */,
 				A14D6E7C21753B55007EEE1F /* UIImage+Alpha.swift in Sources */,
 				A1678C77216D3847006D961B /* CoreDataStack.swift in Sources */,
+				231E831F218E2AD1000BC92A /* UiViewController+Navigation.swift in Sources */,
 				23AB26132180D6B70013CFCB /* Coodinates+CoreDataProperties.swift in Sources */,
 				23AB26152180D6B70013CFCB /* Note+CoreDataProperties.swift in Sources */,
 				23AB26142180D6B70013CFCB /* Notebook+CoreDataProperties.swift in Sources */,
@@ -270,6 +297,7 @@
 				A1678C75216D2FAD006D961B /* Date+Utils.swift in Sources */,
 				A1678CB1216D45A7006D961B /* Note+CoreDataClass.swift in Sources */,
 				A1C377B8216C0D8C00F1DB4B /* NoteDetailsViewController.swift in Sources */,
+				231E8328218E71EF000BC92A /* Region+Validation.swift in Sources */,
 				A1C377AC216BFB0100F1DB4B /* NotebookListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

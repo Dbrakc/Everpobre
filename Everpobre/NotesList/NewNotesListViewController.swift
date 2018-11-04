@@ -35,6 +35,7 @@ class NewNotesListViewController: UIViewController {
 		self.notes = (notebook.notes?.array as? [Note]) ?? []
 		self.coreDataStack = coreDataStack
 		super.init(nibName: "NewNotesListViewController", bundle: nil)
+        self.title = "Lista de Notas"
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -46,7 +47,7 @@ class NewNotesListViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		title = "Notas"
+		
 		self.view.backgroundColor = .white
 
 		let nib = UINib(nibName: "NotesListCollectionViewCell", bundle: nil)
@@ -55,55 +56,99 @@ class NewNotesListViewController: UIViewController {
 		collectionView.backgroundColor = .lightGray
 
 		let addButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
-		let exportButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(exportCSV))
+//        let exportButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(exportCSV))
+        let shareButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
 
-		self.navigationItem.rightBarButtonItems = [addButtonItem, exportButtonItem]
+		self.navigationItem.rightBarButtonItems = [addButtonItem, shareButtonItem]
 	}
 
 	// MARK: Helper methods
+    
+    // TODO: No lo puedo probar ahora porque no tengo móvil iOS y el emulador no tiene aplicaciones que compartan.
+    @objc private func share(){
+        coreDataStack.storeContainer.performBackgroundTask { [unowned self] context in
+            
+            let items: [Note] = self.getNotesArray()
+            let exportPath = NSTemporaryDirectory() + "export.csv"
+            let exportURL = URL(fileURLWithPath: exportPath)
+            FileManager.default.createFile(atPath: exportPath, contents: Data(), attributes: nil)
+            
+            self.writeAndExportCsv(exportURL: exportURL, objectToWrite : items, exportPath: exportPath){data in
+                DispatchQueue.main.async { [weak self] in
+                    let sharingViewController = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+                    
+                    DispatchQueue.main.async { [weak self] in
+                        self?.present(sharingViewController, animated: true)
+                        
+                    }
+                }
+            }
+            
+        
+            
+            
+            
+        }
+    }
 
-	@objc private func exportCSV() {
+    
+
+    
+
+@objc private func exportCSV() {
 
 		coreDataStack.storeContainer.performBackgroundTask { [unowned self] context in
 
-			var results: [Note] = []
-
-			do {
-				results = try self.coreDataStack.managedContext.fetch(self.notesFetchRequest(from: self.notebook))
-			} catch let error as NSError {
-				print("Error: \(error.localizedDescription)")
-			}
+            let results: [Note] = self.getNotesArray()
 
 			let exportPath = NSTemporaryDirectory() + "export.csv"
 			let exportURL = URL(fileURLWithPath: exportPath)
 			FileManager.default.createFile(atPath: exportPath, contents: Data(), attributes: nil)
 
-			let fileHandle: FileHandle?
-			do {
-				fileHandle = try FileHandle(forWritingTo: exportURL)
-			} catch let error as NSError {
-				print(error.localizedDescription)
-				fileHandle = nil
-			}
-
-			if let fileHandle = fileHandle {
-				for note in results {
-					fileHandle.seekToEndOfFile()
-					guard let csvData = note.csv().data(using: .utf8, allowLossyConversion: false) else { return }
-					fileHandle.write(csvData)
-				}
-
-				fileHandle.closeFile()
-				DispatchQueue.main.async { [weak self] in
-					self?.showExportFinishedAlert(exportPath)
-				}
-
-			} else {
-				print("no podemos exportar la data")
-			}
+            self.writeAndExportCsv(exportURL: exportURL, objectToWrite : results, exportPath: exportPath){_ in
+                DispatchQueue.main.async { [weak self] in
+                    self?.showExportFinishedAlert(exportPath)
+                }
+            }
 		}
 
 	}
+    
+    fileprivate func getNotesArray() -> [Note]{
+        do {
+            return try self.coreDataStack.managedContext.fetch(self.notesFetchRequest(from: self.notebook))
+        } catch let error as NSError {
+            print("Error: \(error.localizedDescription)")
+            return []
+        }
+    }
+    
+    fileprivate func writeAndExportCsv(exportURL: URL, objectToWrite results: [Note], exportPath: String, finalAction: (String)->()) {
+        let fileHandle: FileHandle?
+        do {
+            fileHandle = try FileHandle(forWritingTo: exportURL)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+            fileHandle = nil
+        }
+        
+        if let fileHandle = fileHandle {
+            var stringData = ""
+            for note in results {
+                fileHandle.seekToEndOfFile()
+                stringData += note.csv()
+                guard let csvData = note.csv().data(using: .utf8, allowLossyConversion: false) else { return }
+                fileHandle.write(csvData)
+            }
+            
+            fileHandle.closeFile()
+            finalAction(stringData)
+        
+            
+        } else {
+            print("no podemos exportar la data")
+        }
+    }
 
 	private func showExportFinishedAlert(_ exportPath: String) {
 		let message = "El archivo CSV se encuentra en \(exportPath)"
@@ -197,3 +242,4 @@ extension NewNotesListViewController: UIViewControllerTransitioningDelegate {
 		return nil
 	}
 }
+

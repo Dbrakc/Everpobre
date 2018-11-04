@@ -237,8 +237,11 @@ extension NotebookListViewController: UITableViewDelegate {
 		let notebook = fetchedResultsController.object(at: indexPath)
 
 		//let notesListVC = NotesListViewController(notebook: notebook, managedContext: managedContext)
+        let tabBarController = UITabBarController()
 		let notesListVC = NewNotesListViewController(notebook: notebook, coreDataStack: coredataStack)
-		show(notesListVC, sender: nil)
+        let mapViewContoller = MapViewController(notebook: notebook, coreDataStack: coredataStack)
+        tabBarController.viewControllers = [notesListVC.wrappedInNavigation(), mapViewContoller.wrappedInNavigation()]
+		show(tabBarController, sender: nil)
 	}
 
 	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 
 // MARK:- NoteDetailsViewControllerProtocol
 
@@ -37,6 +38,8 @@ class NoteDetailsViewController: UIViewController {
 //	let note: Note
 	let managedContext: NSManagedObjectContext
 	let kind: Kind
+    let locationManager = CLLocationManager ()
+    var lastLocation : CLLocation?
 
 	weak var delegate: NoteDetailsViewControllerProtocol?
 
@@ -57,6 +60,26 @@ class NoteDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		configure()
+        setLocationRequestLoop()
+    }
+    
+    func setLocationRequestLoop () {
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        let delay = DispatchTime.now() + .seconds(5)
+        let queue = DispatchQueue(label: "locationLoop")
+        queue.asyncAfter(deadline: delay, execute: {
+            while(true){
+                if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+                    DispatchQueue.main.async {
+                        self.locationManager.requestLocation()
+                    }
+                    
+                }
+            }
+        })
+        
     }
 
 	// MARK: IBAction
@@ -90,9 +113,22 @@ class NoteDetailsViewController: UIViewController {
 		}
 
 		imageView.image = UIImage(data: data)
+        
+        
 	}
 
 	@objc private func saveNote() {
+        
+        func setCoordinates (in note: Note) {
+            let coordinates = Coodinates(context: managedContext)
+            guard lastLocation != nil else{
+                return
+            }
+            coordinates.latitude = lastLocation!.coordinate.latitude
+            coordinates.longitude = lastLocation!.coordinate.longitude
+            coordinates.addToNotes(note)
+           
+        }
 
 		func addProperties(to note: Note) -> Note {
 			note.title = titleTextField.text
@@ -118,6 +154,9 @@ class NoteDetailsViewController: UIViewController {
 
 		case .new(let notebook):
 			let note = Note(context: managedContext)
+            if(lastLocation != nil){
+                setCoordinates(in: note)
+            }
 			let modifiedNote = addProperties(to: note)
 			modifiedNote.creationDate = NSDate()
 			modifiedNote.notebook = notebook
@@ -228,6 +267,18 @@ private extension NoteDetailsViewController.Kind {
 			return "Nueva Nota"
 		}
 	}
+}
+
+extension NoteDetailsViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            lastLocation = location
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("No pude conseguir la ubicacion del usuario: \(error.localizedDescription)")
+    }
 }
 
 
