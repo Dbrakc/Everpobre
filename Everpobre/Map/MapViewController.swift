@@ -20,12 +20,7 @@ class MapViewController: UIViewController {
     //let managedContext: NSManagedObjectContext
     let coreDataStack: CoreDataStack!
     
-    var notes: [Note] = [] {
-        didSet {
-            mapView.removeAnnotations(mapView.annotations)
-            mapView.addAnnotations(self.notes.filter{$0.coordinates != nil}.map{($0 as MKAnnotation)})
-        }
-    }
+    var notes: [Note] = []
     
     init(notebook: Notebook, coreDataStack: CoreDataStack) {
         self.notebook = notebook
@@ -88,4 +83,11 @@ extension MapViewController: MKMapViewDelegate {
         return annotationView
     }
 
+}
+extension MapViewController : NewNotesListViewControllerDelegate{
+    func newNotesListViewControler(viewController: UIViewController, dataChange: [Note]) {
+        notes = (notebook.notes?.array as? [Note]) ?? []
+    }
+    
+    
 }

@@ -9,6 +9,10 @@
 import UIKit
 import CoreData
 
+protocol NewNotesListViewControllerDelegate{
+    func newNotesListViewControler(viewController: UIViewController, dataChange: [Note] )
+}
+
 class NewNotesListViewController: UIViewController {
 
 	// MARK: IBOutlet
@@ -19,10 +23,12 @@ class NewNotesListViewController: UIViewController {
 	let notebook: Notebook
 	//let managedContext: NSManagedObjectContext
 	let coreDataStack: CoreDataStack!
+    var delegate : NewNotesListViewControllerDelegate?
 
 	var notes: [Note] = [] {
 		didSet {
 			self.collectionView.reloadData()
+            delegate?.newNotesListViewControler(viewController: self, dataChange: self.notes)
 		}
 	}
 
@@ -30,12 +36,13 @@ class NewNotesListViewController: UIViewController {
 
 	// MARK: Init
 
-	init(notebook: Notebook, coreDataStack: CoreDataStack) {
+    init(notebook: Notebook, coreDataStack: CoreDataStack, delegate: NewNotesListViewControllerDelegate? = nil) {
 		self.notebook = notebook
 		self.notes = (notebook.notes?.array as? [Note]) ?? []
 		self.coreDataStack = coreDataStack
 		super.init(nibName: "NewNotesListViewController", bundle: nil)
         self.title = "Lista de Notas"
+        self.delegate = delegate
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -56,15 +63,14 @@ class NewNotesListViewController: UIViewController {
 		collectionView.backgroundColor = .lightGray
 
 		let addButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNote))
-//        let exportButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(exportCSV))
         let shareButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
 
-		self.navigationItem.rightBarButtonItems = [addButtonItem, shareButtonItem]
+		self.navigationItem.rightBarButtonItems = [addButtonItem,shareButtonItem]
 	}
 
 	// MARK: Helper methods
     
-    // TODO: No lo puedo probar ahora porque no tengo móvil iOS y el emulador no tiene aplicaciones que compartan.
+   
     @objc private func share(){
         coreDataStack.storeContainer.performBackgroundTask { [unowned self] context in
             
@@ -84,44 +90,10 @@ class NewNotesListViewController: UIViewController {
                 }
             }
             
-        
-            
-            
-            
         }
     }
-
     
-
     
-
-@objc private func exportCSV() {
-
-		coreDataStack.storeContainer.performBackgroundTask { [unowned self] context in
-
-            let results: [Note] = self.getNotesArray()
-
-			let exportPath = NSTemporaryDirectory() + "export.csv"
-			let exportURL = URL(fileURLWithPath: exportPath)
-			FileManager.default.createFile(atPath: exportPath, contents: Data(), attributes: nil)
-
-            self.writeAndExportCsv(exportURL: exportURL, objectToWrite : results, exportPath: exportPath){_ in
-                DispatchQueue.main.async { [weak self] in
-                    self?.showExportFinishedAlert(exportPath)
-                }
-            }
-		}
-
-	}
-    
-    fileprivate func getNotesArray() -> [Note]{
-        do {
-            return try self.coreDataStack.managedContext.fetch(self.notesFetchRequest(from: self.notebook))
-        } catch let error as NSError {
-            print("Error: \(error.localizedDescription)")
-            return []
-        }
-    }
     
     fileprivate func writeAndExportCsv(exportURL: URL, objectToWrite results: [Note], exportPath: String, finalAction: (String)->()) {
         let fileHandle: FileHandle?
@@ -143,30 +115,41 @@ class NewNotesListViewController: UIViewController {
             
             fileHandle.closeFile()
             finalAction(stringData)
-        
+            
             
         } else {
             print("no podemos exportar la data")
         }
     }
+    
+    private func showExportFinishedAlert(_ exportPath: String) {
+        let message = "El archivo CSV se encuentra en \(exportPath)"
+        let alertController = UIAlertController(title: "Exportacion terminada", message: message, preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .default)
+        alertController.addAction(dismissAction)
+        
+        present(alertController, animated: true)
+    }
+    
+    private func notesFetchRequest(from notebook: Notebook) -> NSFetchRequest<Note> {
+        let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
+        //fetchRequest.fetchBatchSize = 50
+        fetchRequest.predicate = NSPredicate(format: "notebook == %@", notebook)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        
+        return fetchRequest
+    }
 
-	private func showExportFinishedAlert(_ exportPath: String) {
-		let message = "El archivo CSV se encuentra en \(exportPath)"
-		let alertController = UIAlertController(title: "Exportacion terminada", message: message, preferredStyle: .alert)
-		let dismissAction = UIAlertAction(title: "Dismiss", style: .default)
-		alertController.addAction(dismissAction)
-
-		present(alertController, animated: true)
-	}
-
-	private func notesFetchRequest(from notebook: Notebook) -> NSFetchRequest<Note> {
-		let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
-		//fetchRequest.fetchBatchSize = 50
-		fetchRequest.predicate = NSPredicate(format: "notebook == %@", notebook)
-		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-
-		return fetchRequest
-	}
+    
+    
+    fileprivate func getNotesArray() -> [Note]{
+        do {
+            return try self.coreDataStack.managedContext.fetch(self.notesFetchRequest(from: self.notebook))
+        } catch let error as NSError {
+            print("Error: \(error.localizedDescription)")
+            return []
+        }
+    }
 
 	@objc private func addNote() {
 		let newNoteVC = NoteDetailsViewController(kind: .new(notebook: notebook), managedContext: coreDataStack.managedContext)
@@ -176,6 +159,8 @@ class NewNotesListViewController: UIViewController {
 	}
 
 }
+
+
 
 // MARK:- UICollectionViewDataSource
 
@@ -242,4 +227,5 @@ extension NewNotesListViewController: UIViewControllerTransitioningDelegate {
 		return nil
 	}
 }
+
 

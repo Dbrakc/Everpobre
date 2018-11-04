@@ -50,13 +50,99 @@ class NotebookListViewController: UIViewController {
 		//model = deprecated_Notebook.dummyNotebookModel
 		navigationController?.navigationBar.prefersLargeTitles = true
 		navigationController?.navigationItem.largeTitleDisplayMode = .always
+        
+        
 		
 		super.viewDidLoad()
 
 		configureSearchController()
 		showAll()
+        
+        let exportButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(exportCSVs))
+        let addNotebookItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNotebook(_:)))
+        
+        self.navigationItem.rightBarButtonItems = [exportButtonItem, addNotebookItem]
+       
+        
 		//reloadView()
 	}
+    
+//    @objc private func exportCSV() {
+//
+//        coredataStack!.storeContainer.performBackgroundTask { [unowned self] context in
+//
+//            let results: [Note] = self.getNotesArray()
+//
+//            let exportPath = NSTemporaryDirectory() + "export.csv"
+//            let exportURL = URL(fileURLWithPath: exportPath)
+//            FileManager.default.createFile(atPath: exportPath, contents: Data(), attributes: nil)
+//
+//            self.writeAndExportCsv(exportURL: exportURL, objectToWrite : results, exportPath: exportPath){_ in
+//                DispatchQueue.main.async { [weak self] in
+//                    self?.showExportFinishedAlert(exportPath)
+//                }
+//            }
+//        }
+//
+//    }
+    @objc private func exportCSVs (){
+        coredataStack!.storeContainer.performBackgroundTask { [unowned self] context in
+            let notebooks = self.fetchedResultsController.fetchedObjects?.compactMap{ return $0 }
+        
+            notebooks?.forEach{self.writeAndExportCsv(notebookToWrite: $0 )}
+            DispatchQueue.main.async { [weak self] in
+                self?.showExportFinishedAlert()
+            }
+                
+        }
+            
+    }
+    
+    private func showExportFinishedAlert() {
+        let message = "Los archivos CSV se encuentra en \(NSTemporaryDirectory())"
+        let alertController = UIAlertController(title: "Exportacion terminada", message: message, preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .default)
+        alertController.addAction(dismissAction)
+        
+        present(alertController, animated: true)
+    }
+
+        
+    
+        
+        
+    
+    
+    fileprivate func writeAndExportCsv(notebookToWrite notebook: Notebook){
+        let name = notebook.name!
+        let exportPath = NSTemporaryDirectory() + "/\(name).csv"
+        let exportURL = URL(fileURLWithPath: exportPath)
+        FileManager.default.createFile(atPath: exportPath, contents: Data(), attributes: nil)
+        let fileHandle: FileHandle?
+        do {
+            fileHandle = try FileHandle(forWritingTo: exportURL)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+            fileHandle = nil
+        }
+        
+        if let fileHandle = fileHandle {
+            for note  in notebook.notes!.array as! [Note]  {
+                fileHandle.seekToEndOfFile()
+                
+                guard let csvData = note.csv().data(using: .utf8, allowLossyConversion: false) else { return  }
+                fileHandle.write(csvData)
+            }
+            
+            fileHandle.closeFile()
+           
+            
+            
+        } else {
+            print("no podemos exportar la data")
+          
+        }
+    }
 
 	// MARK: NSFetchedResultsController helper methods
 
@@ -238,8 +324,9 @@ extension NotebookListViewController: UITableViewDelegate {
 
 		//let notesListVC = NotesListViewController(notebook: notebook, managedContext: managedContext)
         let tabBarController = UITabBarController()
-		let notesListVC = NewNotesListViewController(notebook: notebook, coreDataStack: coredataStack)
+		
         let mapViewContoller = MapViewController(notebook: notebook, coreDataStack: coredataStack)
+        let notesListVC = NewNotesListViewController(notebook: notebook, coreDataStack: coredataStack,delegate: mapViewContoller)
         tabBarController.viewControllers = [notesListVC.wrappedInNavigation(), mapViewContoller.wrappedInNavigation()]
 		show(tabBarController, sender: nil)
 	}
@@ -356,3 +443,5 @@ extension NotebookListViewController: NSFetchedResultsControllerDelegate {
 		tableView.endUpdates()
 	}
 }
+
+

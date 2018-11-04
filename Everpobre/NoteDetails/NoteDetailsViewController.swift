@@ -28,7 +28,8 @@ class NoteDetailsViewController: UIViewController {
 	// MARK: IBOutlets
 	@IBOutlet weak var imageView: UIImageView!
 	@IBOutlet weak var titleTextField: UITextField!
-	@IBOutlet weak var tagsLabel: UILabel!
+    @IBOutlet weak var tagTextField: UITextField!
+    
 	@IBOutlet weak var creationDateLabel: UILabel!
 	@IBOutlet weak var lastSeenDateLabel: UILabel!
 	@IBOutlet weak var descriptionTextView: UITextView!
@@ -102,6 +103,7 @@ class NoteDetailsViewController: UIViewController {
 
 		title = kind.title
 		titleTextField.text = kind.note?.title
+        tagTextField.text = kind.note?.tags
 		//tagsLabel.text = note.tags?.joined(separator: ",")
 		creationDateLabel.text = "Creado: \((kind.note?.creationDate as Date?)?.customStringLabel() ?? "ND")"
 		lastSeenDateLabel.text = "Visto: \((kind.note?.lastSeenDate as Date?)?.customStringLabel() ?? "ND")"
@@ -133,6 +135,7 @@ class NoteDetailsViewController: UIViewController {
 		func addProperties(to note: Note) -> Note {
 			note.title = titleTextField.text
 			note.text = descriptionTextView.text
+            note.tags = tagTextField.text
 
 			let imageData: NSData?
             if imageView.image == #imageLiteral(resourceName: "120x180.png"),
