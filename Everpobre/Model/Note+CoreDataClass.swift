@@ -24,11 +24,10 @@ extension Note {
         let exportedLatitude = coordinates?.latitude.description ?? ""
         let exportedLongitude = coordinates?.longitude.description ?? ""
         let exportedTags = tags ?? ""
-		let exportedCreationDate = (creationDate as Date?)?.customStringLabel() ?? "ND"
+		let exportedCreationDate = (creationDate as Date?)?.customStringLabel().replacingOccurrences(of: ",", with: ".") ?? "ND"
 
-        //hago el separator del csv por punto y coma para evitar que la
-        //coma del formato de la fecha de problema en su exportación
-        return "\(exportedCreationDate);\(exportedTitle);\(exportedText);\(exportedTags);\(exportedLatitude);\(exportedLongitude)\n"
+        
+        return "\(exportedCreationDate),\(exportedTitle),\(exportedText),\(exportedTags),\(exportedLatitude),\(exportedLongitude)\n"
 	}
     
 }
