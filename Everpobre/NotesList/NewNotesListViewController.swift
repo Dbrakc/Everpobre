@@ -105,7 +105,7 @@ class NewNotesListViewController: UIViewController {
         }
         
         if let fileHandle = fileHandle {
-            var stringData = ""
+            var stringData = "CreationDate, Title, Tags, Text, Latitude, Longitude\n"
             for note in results {
                 fileHandle.seekToEndOfFile()
                 stringData += note.csv()
