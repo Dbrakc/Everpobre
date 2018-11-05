@@ -28,7 +28,7 @@ extension Note {
 
         //hago el separator del csv por punto y coma para evitar que la
         //coma del formato de la fecha de problema en su exportación
-        return "\(exportedCreationDate);\(exportedTitle);\(exportedText);\(exportedTags);\(exportedLatitude);\(exportedLongitude);"
+        return "\(exportedCreationDate);\(exportedTitle);\(exportedText);\(exportedTags);\(exportedLatitude);\(exportedLongitude)\n"
 	}
     
 }
